@@ -78,6 +78,7 @@ namespace RPGSystem
                 if (GUILayout.Button("-", GUILayout.Width(20)))
                 {
                     _enum.Remove(value.Key);
+                    break;
                 }
 
                 GUILayout.Label(value.Key, GUILayout.Width(150));
