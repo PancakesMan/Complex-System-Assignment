@@ -75,8 +75,10 @@ namespace RPGSystem
 
             EditorGUILayout.BeginHorizontal();
             GUILayout.Space(10);
-            enumTypeName = EditorGUILayout.TextField("", enumTypeName, GUILayout.Width(150));
-            enumTypeValue = EditorGUILayout.IntField("Bit Mask", enumTypeValue); 
+            GUILayout.Label("Name: ", GUILayout.MaxWidth(40));
+            enumTypeName = EditorGUILayout.TextField("", enumTypeName, GUILayout.MaxWidth(100));
+            GUILayout.Label("  ID: ", GUILayout.MaxWidth(40));
+            enumTypeValue = EditorGUILayout.IntField("", enumTypeValue, GUILayout.MaxWidth(100)); 
             if (GUILayout.Button("+"))
             {
                 try
@@ -95,6 +97,10 @@ namespace RPGSystem
                 if (_enum.Count > 0)
                 {
                     System.IO.StreamWriter writer = new System.IO.StreamWriter("Assets/Scripts/RPGSystem/Items/ItemTypes.cs");
+                    writer.WriteLine("using System.Collections;");
+                    writer.WriteLine("using System.Collections.Generic;");
+                    writer.WriteLine("using UnityEngine;");
+                    writer.WriteLine();
                     writer.WriteLine("namespace RPGSystem");
                     writer.WriteLine("{");
                     writer.WriteLine("\tpublic enum ItemTypes");
@@ -102,11 +108,10 @@ namespace RPGSystem
                     writer.Write("\t\t");
 
                     List<string> enumFields = new List<string>();
+
                     foreach (KeyValuePair<string, int> value in _enum)
-                    {
                         enumFields.Add(value.Key + " = " + value.Value);
-                        //writer.Write(value.Key + " = " + value.Value + ",\n\t\t");
-                    }
+
                     string enumContents = string.Join("," + System.Environment.NewLine + "\t\t", enumFields.ToArray());
                     writer.WriteLine(enumContents);
                     writer.WriteLine("\t}");
