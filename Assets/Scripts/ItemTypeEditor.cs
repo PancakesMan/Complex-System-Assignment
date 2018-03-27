@@ -41,6 +41,8 @@ namespace RPGSystem
     }
     public class ItemTypeEditor : EditorWindow
     {
+        private static SerializableDictionary _remember = new SerializableDictionary();
+
         [SerializeField]
         SerializableDictionary _enum = new SerializableDictionary();
 
@@ -51,6 +53,18 @@ namespace RPGSystem
         public static void ShowWindow()
         {
             GetWindow<ItemTypeEditor>("Item Types");
+        }
+
+        private void OnEnable()
+        {
+            if (_remember.Count > 0)
+                _enum = _remember;
+        }
+
+        private void OnDestroy()
+        {
+            if (_enum.Count > 0)
+                _remember = _enum;
         }
         private void OnGUI()
         {
