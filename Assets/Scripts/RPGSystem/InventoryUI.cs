@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace RPGSystem {
-    public class Inventory : MonoBehaviour {
+    public class InventoryUI : MonoBehaviour {
 
         public int Width = 1;
         public int Height = 1;
