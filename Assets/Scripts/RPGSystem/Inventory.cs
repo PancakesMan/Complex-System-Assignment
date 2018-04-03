@@ -1,14 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace RPGSystem {
     public class Inventory : MonoBehaviour {
 
         public int Width = 1;
         public int Height = 1;
+        public int CellPadding = 10;
 
-        public ItemTypes CanHold = (ItemTypes)2147483647;
+        public ItemTypes CanHold = (ItemTypes)~0;
+        public Item[,] Items;
+        public Image SampleCell;
 
         public int Size
         {
@@ -18,11 +22,9 @@ namespace RPGSystem {
             }
         }
 
-        Item[,] items;
-
         // Use this for initialization
         void Start() {
-            items = new Item[Width, Height];
+            Items = new Item[Width, Height];
         }
 
         // Update is called once per frame
@@ -34,24 +36,24 @@ namespace RPGSystem {
         {
             // Check if the inventory can hold this item
             // Exit if it cannot
-            //if (!(int)(item.itemType & CanHold)) return false;
+            if ((item.type & CanHold) == 0) return false;
 
             // Check if the inventory already contains this item
             // if it does and it can stack, add it to the stack
-            foreach (Item i in items)
-            {
-                if (i == item &&
-                    i.stackLimit > 1 &&
-                    i.currentStacks < i.stackLimit)
-                {
-                    i.currentStacks++;
-                    return true;
-                }
-            }
+            //foreach (Item i in Items)
+            //{
+            //    if (i == item &&
+            //        i.stackLimit > 1 &&
+            //        i.currentStacks < i.stackLimit)
+            //    {
+            //        i.currentStacks++;
+            //        return true;
+            //    }
+            //}
 
             // If the item can't be added to an already existing stack
             // find an empty slot in the inventory and add it there
-            foreach (Item i in items)
+            foreach (Item i in Items)
             {
                 if (i == null)
                 {

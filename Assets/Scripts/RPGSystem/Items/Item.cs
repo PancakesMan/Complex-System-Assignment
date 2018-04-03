@@ -7,9 +7,9 @@ namespace RPGSystem
     [CreateAssetMenu(fileName = "New Item", menuName = "RPG System/Item")]
     public class Item : ScriptableObject
     {
-        public ItemTypes       itemType;
-        public Sprite          itemSprite;
-        public MeshRenderer    itemModel;
+        public ItemTypes       type;
+        public Sprite          sprite;
+        public MeshRenderer    model;
 
         public int stackLimit, currentStacks;
     }
