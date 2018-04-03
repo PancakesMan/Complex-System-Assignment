@@ -297,8 +297,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 904bff33ec062b0489fe9e2f13416ec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Width: 10
-  Height: 10
+  Width: 4
+  Height: 8
   CellPadding: 10
   CanHold: 2147483647
   SampleCell: {fileID: 321457582}
@@ -480,10 +480,10 @@ RectTransform:
   m_Father: {fileID: 1761025661}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.53000003, y: 0.5268315}
-  m_AnchoredPosition: {x: -75.9, y: -68.05}
-  m_SizeDelta: {x: 30.99, y: 33.09}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -86, y: 303}
+  m_SizeDelta: {x: 62.98999, y: 47.089996}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &718400768
 MonoBehaviour:

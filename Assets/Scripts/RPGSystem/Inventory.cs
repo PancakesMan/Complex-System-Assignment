@@ -16,10 +16,13 @@ namespace RPGSystem {
 
         public bool Visible
         {
-            private set { }
+            set {
+                if (inventory != null)
+                    inventory.gameObject.SetActive(value);
+            }
             get {
                 if (inventory != null)
-                    return inventory.enabled;
+                    return inventory.gameObject.activeSelf;
                 return false;
             }
         }
@@ -36,9 +39,10 @@ namespace RPGSystem {
 
         // Use this for initialization
         void Start() {
-
+            SampleCell.gameObject.SetActive(false);
             Items = new Item[Width, Height];
             inventory = SampleCell.transform.parent.GetComponent<Image>();
+
             if (inventory != null)
             {
                 //Resize inventory to fit cells
@@ -53,8 +57,9 @@ namespace RPGSystem {
                     for (int y = 0; y < Height; y++)
                     {
                         Image nextCell = Instantiate(SampleCell);
-                        //nextCell.transform.parent = inventory.transform;
-                        nextCell.transform.SetParent(inventory.transform, true);
+                        nextCell.gameObject.SetActive(true);
+                        nextCell.gameObject.name = name + "_cell_" + x + "_" + y;
+                        nextCell.transform.SetParent(inventory.transform);
                         Vector3 oldPos = SampleCell.transform.position;
                         nextCell.transform.position= new Vector3(
                             oldPos.x + SampleCell.rectTransform.rect.width * x + CellPadding * x,
@@ -105,12 +110,6 @@ namespace RPGSystem {
             // If there are no empty slots in the inventory
             // the item can't be added to it.
             return false;
-        }
-
-        public void Toggle()
-        {
-            if (inventory != null)
-                inventory.enabled = !inventory.enabled;
         }
     }
 }
