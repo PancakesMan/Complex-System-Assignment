@@ -95,9 +95,21 @@ namespace RPGSystem
                         i.stackLimit > 1 &&
                         i.currentStacks < i.stackLimit)
                     {
-                        i.currentStacks++;
-                        OnUpdate.Invoke(i, x, y);
-                        return true;
+                        if (i.currentStacks + item.currentStacks > i.stackLimit)
+                        {
+                            int fillAmount = i.stackLimit - i.currentStacks;
+                            i.currentStacks = i.stackLimit;
+                            item.currentStacks -= fillAmount;
+                            AddItem(item);
+                            OnUpdate.Invoke(i, x, y);
+                            return true;
+                        }
+                        else
+                        {
+                            i.currentStacks += item.currentStacks;
+                            OnUpdate.Invoke(i, x, y);
+                            return true;
+                        }
                     }
                 }
             }
