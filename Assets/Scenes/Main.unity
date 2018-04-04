@@ -299,20 +299,9 @@ MonoBehaviour:
   Height: 1
   ItemToAdd: {fileID: 0}
   CanHold: 2147483647
-  OnAdd:
+  OnUpdate:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 718400770}
-        m_MethodName: OnItemAdded
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: RPGSystem.Inventory+InventoryEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &526819499
@@ -401,12 +390,6 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224263602204577860, guid: 2fab2c39ff98e424a8be51deead1d6cb,
     type: 2}
   m_PrefabInternal: {fileID: 997872597}
---- !u!114 &718400770 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114222342743931410, guid: 2fab2c39ff98e424a8be51deead1d6cb,
-    type: 2}
-  m_PrefabInternal: {fileID: 997872597}
-  m_Script: {fileID: 11500000, guid: 703c0a6f1a2d5de4ca4ede81a155ffae, type: 3}
 --- !u!1 &835041299
 GameObject:
   m_ObjectHideFlags: 0
