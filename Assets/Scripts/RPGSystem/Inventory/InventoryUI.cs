@@ -46,10 +46,10 @@ namespace RPGSystem
         {
             // wire up the events from the inventory we're viewing, and detach the old one
             if (inventory != null)
-                inventory.OnAdd.RemoveListener(OnItemAdded);
+                inventory.OnUpdate.RemoveListener(OnItemAdded);
             inventory = inv;
             if (inventory != null)
-                inventory.OnAdd.AddListener(OnItemAdded);
+                inventory.OnUpdate.AddListener(OnItemAdded);
 
             // fill the inventory screen with items
             Setup();

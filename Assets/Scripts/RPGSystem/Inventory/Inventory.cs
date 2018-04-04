@@ -28,7 +28,7 @@ namespace RPGSystem
         {
         }
 
-        public InventoryEvent OnAdd;
+        public InventoryEvent OnUpdate;
 
         public Item GetItem(int x, int y)
         {
@@ -79,17 +79,24 @@ namespace RPGSystem
             // Exit if it cannot
             if ((item.type & CanHold) == 0) return false;
 
+            string name = item.name;
+            item = Instantiate(item);
+            item.name = name;
+
             // Check if the inventory already contains this item
             // if it does and it can stack, add it to the stack
-            foreach (Item[] iArr in Items)
+            for (int x = 0; x < Items.Length; x++)
             {
-                foreach (Item i in iArr)
+                for (int y = 0; y < Items[x].Length; y++)
                 {
-                    if (i == item &&
+                    Item i = Items[x][y];
+                    if (i != null &&
+                        i.name == item.name &&
                         i.stackLimit > 1 &&
                         i.currentStacks < i.stackLimit)
                     {
                         i.currentStacks++;
+                        OnUpdate.Invoke(i, x, y);
                         return true;
                     }
                 }
@@ -104,7 +111,7 @@ namespace RPGSystem
                     if (GetItem(x,y) == null)
                     {
                         SetItem(x, y, item);
-                        OnAdd.Invoke(item, x, y);
+                        OnUpdate.Invoke(item, x, y);
                         return true;
                     }
                 }
