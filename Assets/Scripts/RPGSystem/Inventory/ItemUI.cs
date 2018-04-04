@@ -14,17 +14,11 @@ namespace RPGSystem
         // Use this for initialization
         void Start()
         {
-            //SetItem(null);
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (item && itemStackCount)
-            {
-                image.gameObject.SetActive(true);
-                itemStackCount.text = item.currentStacks.ToString();
-            }
         }
 
         public void SetItem(Item _item)
