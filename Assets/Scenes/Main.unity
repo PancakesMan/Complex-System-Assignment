@@ -197,7 +197,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &486506989
 GameObject:
@@ -558,6 +558,11 @@ Prefab:
       propertyPath: m_Name
       value: PlayerBeltInventory
       objectReference: {fileID: 0}
+    - target: {fileID: 114222342743931410, guid: 2fab2c39ff98e424a8be51deead1d6cb,
+        type: 2}
+      propertyPath: Draggable
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2fab2c39ff98e424a8be51deead1d6cb, type: 2}
   m_IsPrefabParent: 0
@@ -782,7 +787,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1761025657
 GameObject:
