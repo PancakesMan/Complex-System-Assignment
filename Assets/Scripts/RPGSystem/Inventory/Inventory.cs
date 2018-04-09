@@ -54,6 +54,7 @@ namespace RPGSystem
             }
 
             Items[x][y] = item;
+            OnUpdate.Invoke(item, x, y);
         }
 
         // Use this for initialization

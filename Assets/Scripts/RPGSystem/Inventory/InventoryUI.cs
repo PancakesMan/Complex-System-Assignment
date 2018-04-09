@@ -99,6 +99,8 @@ namespace RPGSystem
                         items[x, y].item = inventory.GetItem(x, y);
                         items[x, y].image.transform.SetParent(cells[x, y].transform);
                         items[x, y].transform.localPosition = new Vector3(sampleCell.rectTransform.rect.width / 2, -sampleCell.rectTransform.rect.height / 2);
+                        items[x, y].positionInInventory = new Vector2(x, y);
+                        items[x, y].UIParent = this;
                     }
                 }
             }
@@ -107,6 +109,48 @@ namespace RPGSystem
         public void OnItemAdded(Item item, int x, int y)
         {
             items[x, y].SetItem(item);
+        }
+
+        public bool CanDrop(ItemUI dragged)
+        {
+            // If the inventory displayed in this UI can not hold the item type
+            // exit the function call by returning false
+            if ((dragged.item.type & inventory.CanHold) == 0) return false;
+
+            int x = (int)dragged.positionInInventory.x, y = (int)dragged.positionInInventory.y;
+
+            // If the spot the item is being dragged to is empty
+            // the item can go in that spot
+            if (!items[x, y].item)
+                return true;
+
+            // If the spot the item is being dragged into isn't empty
+            if (items[x, y].item)
+            {
+                // If the item in that spot can't go in the other inventory
+                // exit the funciton call by returning false
+                if ((dragged.UIParent.inventory.CanHold & items[x, y].item.type) == 0) return false;
+
+                // If the item in that spot can go in the other inventory, return true
+                else
+                    return true;
+            }
+
+            // Something funky happened, let's return false
+            return false;
+        }
+
+        public void Drop(ItemUI dragged, ItemUI dropped)
+        {
+            // If the other inventory can hold my item, and I can hold the dragged item
+            if (dragged.UIParent.CanDrop(dropped) && dropped.UIParent.CanDrop(dragged))
+            {
+                Item myItem = dropped.item;
+                Item draggedItem = dragged.item;
+
+                dragged.SetItem(myItem);
+                dropped.SetItem(draggedItem);
+            }
         }
     }
 }

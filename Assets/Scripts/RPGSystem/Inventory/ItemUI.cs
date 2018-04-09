@@ -11,19 +11,16 @@ namespace RPGSystem
         public Image image;
         public Text itemStackCount;
 
-        // Use this for initialization
-        void Start()
-        {
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        }
+        [HideInInspector]
+        public Vector2 positionInInventory = Vector2.zero;
+        [HideInInspector]
+        public InventoryUI UIParent;
 
         public void SetItem(Item _item)
         {
             item = _item;
+            UIParent.inventory.SetItem((int)positionInInventory.x, (int)positionInInventory.y, _item);
+
             if (item)
             {
                 if (image)
@@ -41,6 +38,8 @@ namespace RPGSystem
             {
                 if (image)
                     image.gameObject.SetActive(false);
+                if (itemStackCount)
+                    itemStackCount.gameObject.SetActive(false);
             }
         }
     }
