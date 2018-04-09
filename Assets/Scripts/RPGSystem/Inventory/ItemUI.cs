@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace RPGSystem
 {
-    public class ItemUI : MonoBehaviour
+    public class ItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         public Item item;
         public Image image;
@@ -16,10 +17,18 @@ namespace RPGSystem
         [HideInInspector]
         public InventoryUI UIParent;
 
+        private Vector3 originalPosition;
+        private bool dragging = false;
+
+        public void Start()
+        {
+            if (itemStackCount)
+                itemStackCount.raycastTarget = false;
+        }
+
         public void SetItem(Item _item)
         {
             item = _item;
-            UIParent.inventory.SetItem((int)positionInInventory.x, (int)positionInInventory.y, _item);
 
             if (item)
             {
@@ -41,6 +50,57 @@ namespace RPGSystem
                 if (itemStackCount)
                     itemStackCount.gameObject.SetActive(false);
             }
+        }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            // Save our start position
+            originalPosition = transform.position;
+
+            // Move this and parent to front of UI Canvas, so they are
+            // drawn over everything else on the canvas
+            Transform t = transform;
+            while (t != null)
+            {
+                t.SetAsLastSibling();
+                t = t.parent;
+            }
+
+            // Make it ignored by raycasts so we can get
+            // the objects under it
+            GetComponent<Image>().raycastTarget = false;
+
+            // Set dragging to true so we can be moved
+            dragging = true;
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            if (dragging)
+                transform.position = eventData.position;
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            if (!dragging) return;
+
+            ItemUI target = null;
+            List<RaycastResult> hitObjects = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(eventData, hitObjects);
+            if (hitObjects.Count > 0)
+                target = hitObjects[0].gameObject.GetComponentInChildren<ItemUI>(true);
+
+            if (target)
+            {
+                if (target.UIParent.CanDrop(this, (int)target.positionInInventory.x, (int)target.positionInInventory.y))
+                {
+                    target.UIParent.Drop(this, target);
+                }
+            }
+
+            transform.position = originalPosition;
+            GetComponent<Image>().raycastTarget = true;
+            dragging = false;
         }
     }
 }

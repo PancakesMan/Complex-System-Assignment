@@ -111,13 +111,13 @@ namespace RPGSystem
             items[x, y].SetItem(item);
         }
 
-        public bool CanDrop(ItemUI dragged)
+        public bool CanDrop(ItemUI dragged, int x, int y)
         {
             // If the inventory displayed in this UI can not hold the item type
             // exit the function call by returning false
-            if ((dragged.item.type & inventory.CanHold) == 0) return false;
+            if (dragged.item != null && (dragged.item.type & inventory.CanHold) == 0) return false;
 
-            int x = (int)dragged.positionInInventory.x, y = (int)dragged.positionInInventory.y;
+            //int x = (int)dragged.positionInInventory.x, y = (int)dragged.positionInInventory.y;
 
             // If the spot the item is being dragged to is empty
             // the item can go in that spot
@@ -143,13 +143,34 @@ namespace RPGSystem
         public void Drop(ItemUI dragged, ItemUI dropped)
         {
             // If the other inventory can hold my item, and I can hold the dragged item
-            if (dragged.UIParent.CanDrop(dropped) && dropped.UIParent.CanDrop(dragged))
+            if (dropped.UIParent.CanDrop(dragged, (int)dropped.positionInInventory.x, (int)dropped.positionInInventory.y) &&
+                dragged.UIParent.CanDrop(dropped, (int)dragged.positionInInventory.x, (int)dragged.positionInInventory.y))
             {
                 Item myItem = dropped.item;
                 Item draggedItem = dragged.item;
 
-                dragged.SetItem(myItem);
-                dropped.SetItem(draggedItem);
+                if (myItem && draggedItem && myItem.name == draggedItem.name)
+                {
+                    if (myItem.currentStacks + draggedItem.currentStacks <= myItem.stackLimit)
+                    {
+                        dropped.UIParent.inventory.AddItem(draggedItem);
+                        dragged.UIParent.inventory.SetItem((int)dragged.positionInInventory.x, (int)dragged.positionInInventory.y, null);
+                    }
+                    else if (myItem.currentStacks + draggedItem.currentStacks > myItem.stackLimit)
+                    {
+                        draggedItem.currentStacks -= (myItem.stackLimit - myItem.currentStacks);
+                        myItem.currentStacks = myItem.stackLimit;
+
+                        // Manually update the inventories as we are directly modifying the items
+                        dragged.UIParent.inventory.OnUpdate.Invoke(draggedItem, (int)dragged.positionInInventory.x, (int)dragged.positionInInventory.y);
+                        dropped.UIParent.inventory.OnUpdate.Invoke(myItem, (int)dropped.positionInInventory.x, (int)dropped.positionInInventory.y);
+                    }
+                }
+                else
+                {
+                    dragged.UIParent.inventory.SetItem((int)dragged.positionInInventory.x, (int)dragged.positionInInventory.y, myItem);
+                    dropped.UIParent.inventory.SetItem((int)dropped.positionInInventory.x, (int)dropped.positionInInventory.y, draggedItem);
+                }
             }
         }
     }

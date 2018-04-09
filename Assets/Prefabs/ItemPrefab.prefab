@@ -120,6 +120,8 @@ MonoBehaviour:
   item: {fileID: 0}
   image: {fileID: 114297770133092690}
   itemStackCount: {fileID: 114206050334881302}
+  positionInInventory: {x: 0, y: 0}
+  UIParent: {fileID: 0}
 --- !u!222 &222055743880484556
 CanvasRenderer:
   m_ObjectHideFlags: 1
