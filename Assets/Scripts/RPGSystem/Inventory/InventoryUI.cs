@@ -1,17 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace RPGSystem
 {
-    public class InventoryUI : MonoBehaviour
+    public class InventoryUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         public int CellPadding = 10;
+        public bool Draggable = true;
 
         public Image sampleCell;
         public Inventory inventory;
         public GameObject itemPrefab;
+
+        private bool dragging;
 
         public bool Visible
         {
@@ -172,6 +176,34 @@ namespace RPGSystem
                     dropped.UIParent.inventory.SetItem((int)dropped.positionInInventory.x, (int)dropped.positionInInventory.y, draggedItem);
                 }
             }
+        }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            transform.SetAsLastSibling();
+
+            if (Draggable)
+            {
+                bool mouseOverInventory = false;
+                List<RaycastResult> hitObjects = new List<RaycastResult>();
+                EventSystem.current.RaycastAll(eventData, hitObjects);
+                if (hitObjects.Count > 0)
+                    mouseOverInventory = hitObjects[0].gameObject.GetComponent<InventoryUI>() != null;
+
+                dragging = mouseOverInventory;
+            }
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            if (dragging)
+                transform.position += new Vector3(eventData.delta.x, eventData.delta.y);
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            if (!dragging) return;
+            dragging = false;
         }
     }
 }
