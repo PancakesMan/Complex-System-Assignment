@@ -161,8 +161,10 @@ namespace RPGSystem
                 {
                     if (myItem.currentStacks + draggedItem.currentStacks <= myItem.stackLimit)
                     {
-                        dropped.UIParent.inventory.AddItem(draggedItem);
+                        dropped.item.currentStacks += draggedItem.currentStacks;
                         dragged.UIParent.inventory.SetItem((int)dragged.positionInInventory.x, (int)dragged.positionInInventory.y, null);
+
+                        dropped.UIParent.inventory.OnUpdate.Invoke(myItem, (int)dropped.positionInInventory.x, (int)dropped.positionInInventory.y);
                     }
                     else if (myItem.currentStacks + draggedItem.currentStacks > myItem.stackLimit)
                     {
