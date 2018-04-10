@@ -106,9 +106,8 @@ namespace RPGSystem
                             int fillAmount = i.stackLimit - i.currentStacks;
                             i.currentStacks = i.stackLimit;
                             item.currentStacks -= fillAmount;
-                            AddItem(item);
                             OnUpdate.Invoke(i, x, y);
-                            return true;
+                            return AddItem(item);
                         }
                         else
                         {

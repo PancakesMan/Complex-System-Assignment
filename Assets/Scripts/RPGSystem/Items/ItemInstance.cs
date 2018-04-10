@@ -32,8 +32,7 @@ namespace RPGSystem
         {
             if (collider.gameObject.CompareTag("Player") && _landed)
             {
-                collider.gameObject.GetComponent<Inventory>().AddItem(_item);
-                if (_item.currentStacks <= 0)
+                if (collider.gameObject.GetComponent<Inventory>().AddItem(_item))
                     Destroy(gameObject);
             }
             else if (collider.gameObject.CompareTag("Ground"))

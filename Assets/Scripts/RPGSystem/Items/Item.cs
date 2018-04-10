@@ -12,5 +12,6 @@ namespace RPGSystem
         public GameObject      modelPrefab;
 
         public int stackLimit, currentStacks;
+        public string description;
     }
 }

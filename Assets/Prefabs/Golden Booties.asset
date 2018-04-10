@@ -16,4 +16,5 @@ MonoBehaviour:
   modelPrefab: {fileID: 1656356983371600, guid: 5b79188d7dd727c48ae151bae4e2b8da,
     type: 2}
   stackLimit: 5
-  currentStacks: 1
+  currentStacks: 5
+  description: A pair of Golden Booties.
