@@ -9,7 +9,7 @@ namespace RPGSystem
     {
         public ItemTypes       type;
         public Sprite          sprite;
-        public MeshRenderer    model;
+        public Mesh            model;
 
         public int stackLimit, currentStacks;
     }

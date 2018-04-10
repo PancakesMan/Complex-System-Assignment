@@ -93,6 +93,10 @@ namespace RPGSystem
                 if (dt)
                     target = dt.GetComponentInChildren<ItemUI>(true);
             }
+            else
+            {
+                //TODO drop item on the ground and remove from player inventory
+            }
 
             if (target && target != this)
             {
