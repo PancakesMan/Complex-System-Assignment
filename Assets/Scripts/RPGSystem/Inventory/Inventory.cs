@@ -69,9 +69,18 @@ namespace RPGSystem
         {
             if (ItemToAdd != null)
             {
-                AddItem(ItemToAdd);
+                AddPrefabItem(ItemToAdd);
                 ItemToAdd = null;
             }
+        }
+
+        private void AddPrefabItem(Item item)
+        {
+            string name = item.name;
+            item = Instantiate(item);
+            item.name = name;
+
+            AddItem(item);
         }
 
         public bool AddItem(Item item)
@@ -79,10 +88,6 @@ namespace RPGSystem
             // Check if the inventory can hold this item
             // Exit if it cannot
             if ((item.type & CanHold) == 0) return false;
-
-            string name = item.name;
-            item = Instantiate(item);
-            item.name = name;
 
             // Check if the inventory already contains this item
             // if it does and it can stack, add it to the stack
