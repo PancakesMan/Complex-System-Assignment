@@ -39,13 +39,25 @@ GameObject:
   - component: {fileID: 224745286235725868}
   - component: {fileID: 222440995863762694}
   - component: {fileID: 114968810925324134}
+  - component: {fileID: 114170169799880574}
   m_Layer: 5
   m_Name: ItemCell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
+--- !u!114 &114170169799880574
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1335757693225598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8df95b21d7db844ab6da56a43098f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114222342743931410
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -58,6 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CellPadding: 10
+  Draggable: 1
   sampleCell: {fileID: 114968810925324134}
   inventory: {fileID: 0}
   itemPrefab: {fileID: 1256615942792182, guid: eee9575a4dab5db489625563b83d2b86, type: 2}
@@ -143,7 +156,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 508.51, y: 24}
+  m_AnchoredPosition: {x: 154, y: 352}
   m_SizeDelta: {x: 62.98999, y: 47.089996}
   m_Pivot: {x: 0, y: 0}
 --- !u!224 &224745286235725868

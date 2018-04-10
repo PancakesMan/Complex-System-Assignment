@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 namespace RPGSystem
 {
-    public class ItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class ItemUI : DropTarget, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         public Item item;
         public Image image;
@@ -88,9 +88,13 @@ namespace RPGSystem
             List<RaycastResult> hitObjects = new List<RaycastResult>();
             EventSystem.current.RaycastAll(eventData, hitObjects);
             if (hitObjects.Count > 0)
-                target = hitObjects[0].gameObject.GetComponentInChildren<ItemUI>(true);
+            {
+                DropTarget dt = hitObjects[0].gameObject.GetComponent<DropTarget>();
+                if (dt)
+                    target = dt.GetComponentInChildren<ItemUI>(true);
+            }
 
-            if (target)
+            if (target && target != this)
             {
                 if (target.UIParent.CanDrop(this, (int)target.positionInInventory.x, (int)target.positionInInventory.y))
                 {

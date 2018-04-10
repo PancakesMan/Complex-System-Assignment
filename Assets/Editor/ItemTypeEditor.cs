@@ -39,6 +39,7 @@ namespace RPGSystem
                 this.Add(keys[i], values[i]);
         }
     }
+
     public class ItemTypeEditor : EditorWindow
     {
         private static SerializableDictionary _remember = new SerializableDictionary();
@@ -120,6 +121,8 @@ namespace RPGSystem
                     writer.WriteLine("{");
                     writer.WriteLine("\tpublic enum ItemTypes");
                     writer.WriteLine("\t{");
+                    writer.WriteLine("\t\tAll = -1,");
+                    writer.WriteLine("\t\tNone = 0,");
                     writer.Write("\t\t");
 
                     List<string> enumFields = new List<string>();

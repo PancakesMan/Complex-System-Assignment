@@ -103,6 +103,10 @@ namespace RPGSystem
                         items[x, y].item = inventory.GetItem(x, y);
                         items[x, y].image.transform.SetParent(cells[x, y].transform);
                         items[x, y].transform.localPosition = new Vector3(sampleCell.rectTransform.rect.width / 2, -sampleCell.rectTransform.rect.height / 2);
+                        items[x, y].image.rectTransform.sizeDelta = new Vector2(
+                            sampleCell.rectTransform.rect.width,
+                            sampleCell.rectTransform.rect.height
+                        );
                         items[x, y].positionInInventory = new Vector2(x, y);
                         items[x, y].UIParent = this;
                     }
@@ -180,15 +184,15 @@ namespace RPGSystem
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            transform.SetAsLastSibling();
-
             if (Draggable)
             {
+                transform.SetAsLastSibling();
                 bool mouseOverInventory = false;
                 List<RaycastResult> hitObjects = new List<RaycastResult>();
+
                 EventSystem.current.RaycastAll(eventData, hitObjects);
-                if (hitObjects.Count > 0)
-                    mouseOverInventory = hitObjects[0].gameObject.GetComponent<InventoryUI>() != null;
+                if (hitObjects.Count == 1)
+                    mouseOverInventory = hitObjects[0].gameObject.GetComponent<InventoryUI>();
 
                 dragging = mouseOverInventory;
             }
