@@ -95,7 +95,16 @@ namespace RPGSystem
             }
             else
             {
-                //TODO drop item on the ground and remove from player inventory
+                if (item.modelPrefab)
+                {
+                    //TODO Drop item on the ground
+                    GameObject droppedItem = Instantiate(item.modelPrefab);
+                    droppedItem.GetComponent<ItemInstance>().SetItem(item, UIParent.inventory.transform);
+                }
+                
+
+                // Remove item from player inventory
+                UIParent.inventory.SetItem((int)positionInInventory.x, (int)positionInInventory.y, null);
             }
 
             if (target && target != this)

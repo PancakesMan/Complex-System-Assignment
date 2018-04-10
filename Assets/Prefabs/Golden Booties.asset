@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  model: {fileID: 0}
+  modelPrefab: {fileID: 1656356983371600, guid: 5b79188d7dd727c48ae151bae4e2b8da,
+    type: 2}
   stackLimit: 5
   currentStacks: 1
