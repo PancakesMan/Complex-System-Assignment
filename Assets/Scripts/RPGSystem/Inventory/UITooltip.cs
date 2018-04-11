@@ -16,12 +16,15 @@ namespace RPGSystem
         {
             instance = this;
             instance.gameObject.SetActive(false);
+            background.raycastTarget = false;
+            text.raycastTarget = false;
         }
 
         // Update is called once per frame
         void Update()
         {
-
+            if (gameObject.activeSelf)
+                SetPosition(Input.mousePosition);
         }
 
         public void SetText(string msg)

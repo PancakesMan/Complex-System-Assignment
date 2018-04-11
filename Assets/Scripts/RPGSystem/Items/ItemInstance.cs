@@ -6,7 +6,7 @@ namespace RPGSystem
 {
     public class ItemInstance : MonoBehaviour
     {
-        private Item _item;
+        public Item _item;
         private bool _landed = false;
 
         // Use this for initialization
