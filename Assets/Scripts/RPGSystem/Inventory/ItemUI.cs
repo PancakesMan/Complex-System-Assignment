@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 namespace RPGSystem
 {
-    public class ItemUI : DropTarget, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class ItemUI : DropTarget, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
     {
         public Item item;
         public Image image;
@@ -72,6 +72,7 @@ namespace RPGSystem
 
             // Set dragging to true so we can be moved
             dragging = true;
+            UITooltip.instance.gameObject.SetActive(false);
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -118,6 +119,21 @@ namespace RPGSystem
             transform.position = originalPosition;
             GetComponent<Image>().raycastTarget = true;
             dragging = false;
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            if (!dragging)
+            {
+                UITooltip.instance.SetText("<b>" + item.name + "</b>\n\n" + item.description);
+                UITooltip.instance.SetPosition(eventData.position);
+                UITooltip.instance.gameObject.SetActive(true);
+            }
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            UITooltip.instance.gameObject.SetActive(false);
         }
     }
 }
