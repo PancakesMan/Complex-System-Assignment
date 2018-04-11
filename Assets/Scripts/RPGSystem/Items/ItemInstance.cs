@@ -24,7 +24,7 @@ namespace RPGSystem
         public void SetItem(Item item, Transform spawnPosition)
         {
             _item = item;
-            GetComponent<Rigidbody>().position = spawnPosition.position;
+            GetComponent<Rigidbody>().position = spawnPosition.position + Vector3.up;
             GetComponent<Rigidbody>().velocity = (spawnPosition.forward + Vector3.up) * 3.0f;
         }
 
