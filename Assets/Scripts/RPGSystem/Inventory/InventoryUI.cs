@@ -46,7 +46,7 @@ namespace RPGSystem
 
         }
 
-        void SetInventory(Inventory inv)
+        public void SetInventory(Inventory inv)
         {
             // wire up the events from the inventory we're viewing, and detach the old one
             if (inventory != null)
@@ -61,6 +61,17 @@ namespace RPGSystem
 
         void Setup()
         {
+            if (cells != null)
+            {
+                for (int x = 0; x < cells.GetLength(0); x++)
+                    for (int y = 0; y < cells.GetLength(1); y++)
+                    {
+                        Destroy(cells[x, y].gameObject);
+                        Destroy(items[x, y].gameObject);
+                    }
+            }
+
+
             cells = new Image[inventory.Width, inventory.Height];
             items = new ItemUI[inventory.Width, inventory.Height];
             sampleCell.gameObject.SetActive(false);
@@ -100,7 +111,7 @@ namespace RPGSystem
                     {
                         GameObject go = Instantiate(itemPrefab);
                         items[x, y] = go.GetComponent<ItemUI>();
-                        items[x, y].item = inventory.GetItem(x, y);
+                        items[x, y].SetItem(inventory.GetItem(x, y));
                         items[x, y].image.transform.SetParent(cells[x, y].transform);
                         items[x, y].transform.localPosition = new Vector3(sampleCell.rectTransform.rect.width / 2, -sampleCell.rectTransform.rect.height / 2);
                         items[x, y].image.rectTransform.sizeDelta = new Vector2(
