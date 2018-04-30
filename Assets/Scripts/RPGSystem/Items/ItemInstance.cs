@@ -7,7 +7,10 @@ namespace RPGSystem
     public class ItemInstance : MonoBehaviour
     {
         public Item _item;
-        private bool _landed = false;
+        public float pickupTimer = 2.0f;
+
+        private bool _pickable = false;
+        private float _timer = 0.0f;
 
         // Use this for initialization
         void Start()
@@ -18,7 +21,9 @@ namespace RPGSystem
         // Update is called once per frame
         void Update()
         {
-
+            _timer += Time.deltaTime;
+            if (_timer > pickupTimer)
+                _pickable = true;
         }
 
         public void SetItem(Item item, Transform spawnPosition)
@@ -30,17 +35,13 @@ namespace RPGSystem
 
         private void OnTriggerEnter(Collider collider)
         {
-            if (collider.gameObject.CompareTag("Player") && _landed)
-            {
-                // Instatiate the item when added so it don't break
+            if (collider.gameObject.CompareTag("Player") && _pickable)
+                // Instatiate the item when added so it doesn't change the prefab
                 if (collider.gameObject.GetComponent<Inventory>().AddItem(MakeCopyOf(_item)))
                     Destroy(gameObject);
-            }
+
             else if (collider.gameObject.CompareTag("Ground"))
-            {
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
-                _landed = true;
-            }
         }
 
         private Item MakeCopyOf(Item item)
