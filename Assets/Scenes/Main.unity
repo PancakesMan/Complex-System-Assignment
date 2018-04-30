@@ -183,7 +183,7 @@ Prefab:
         type: 2}
       propertyPath: _item
       value: 
-      objectReference: {fileID: 11400000, guid: ac923939573d9da4d8cb2e0c9e98da42,
+      objectReference: {fileID: 11400000, guid: d90bf216c8c5ee3408ed41c89b0b994c,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5b79188d7dd727c48ae151bae4e2b8da, type: 2}
@@ -651,6 +651,16 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 224745286235725868, guid: 2fab2c39ff98e424a8be51deead1d6cb,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 224745286235725868, guid: 2fab2c39ff98e424a8be51deead1d6cb,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 18
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2fab2c39ff98e424a8be51deead1d6cb, type: 2}
   m_IsPrefabParent: 0
@@ -760,21 +770,26 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 6f5ac22b894785345bc0de34be8399eb, type: 3}
       propertyPath: m_Name
-      value: Crate_Sealed_01 1
+      value: Storage Small Chest
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 6f5ac22b894785345bc0de34be8399eb, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.11502769
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 6f5ac22b894785345bc0de34be8399eb, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.11502769
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 6f5ac22b894785345bc0de34be8399eb, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.11502769
+      value: 0.1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 400004, guid: 6f5ac22b894785345bc0de34be8399eb, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6400002, guid: 6f5ac22b894785345bc0de34be8399eb, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: 6f5ac22b894785345bc0de34be8399eb, type: 3}
   m_IsPrefabParent: 0
 --- !u!1 &1331792093 stripped
@@ -801,6 +816,18 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: RPGSystem.Inventory+InventoryEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!65 &1331792096
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1331792093}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7.620001, y: 7.772401, z: 7.620001}
+  m_Center: {x: -0.12533964, y: 3.8862004, z: 0.102331415}
 --- !u!1001 &1431978526
 Prefab:
   m_ObjectHideFlags: 0
