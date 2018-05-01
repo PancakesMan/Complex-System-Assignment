@@ -11,6 +11,8 @@ namespace RPGSystem
         public Image background;
         public Text text;
 
+        private GameObject TooltipObject;
+
         // Use this for initialization
         void Start()
         {
@@ -24,7 +26,16 @@ namespace RPGSystem
         void Update()
         {
             if (gameObject.activeSelf)
+            {
                 SetPosition(Input.mousePosition);
+                if (!TooltipObject.activeInHierarchy)
+                    gameObject.SetActive(false);
+            }
+        }
+
+        public void SetTooltipObject(GameObject obj)
+        {
+            TooltipObject = obj;
         }
 
         public void SetText(string msg)

@@ -43,6 +43,15 @@ namespace RPGSystem
             return Items[x][y];
         }
 
+        public int GetItemCount(Item item)
+        {
+            int count = 0;
+            for (int x = 0; x < Width; x++)
+                for (int y = 0; y < Height; y++)
+                    count += GetItem(x, y).name == item.name ? GetItem(x, y).currentStacks : 0;
+            return count;
+        }
+
         public void SetItem(int x, int y, Item item)
         {
             // lazy initialisation
@@ -55,6 +64,40 @@ namespace RPGSystem
 
             Items[x][y] = item;
             OnUpdate.Invoke(item, x, y);
+        }
+
+        public bool RemoveItems(Item item, int amount)
+        {
+            for (int x = 0; x < Width; x++)
+                for (int y = 0; y < Height; y++)
+                {
+                    Item temp = GetItem(x, y);
+                    if (temp.name == item.name)
+                    {
+                        if (temp.currentStacks <= amount)
+                        {
+                            amount -= temp.currentStacks;
+                            SetItem(x, y, null);
+                        }
+                        else if (temp.currentStacks > amount)
+                            temp.currentStacks -= amount;
+                    }
+
+                    if (amount == 0)
+                        return true;
+                }
+
+            return false;
+        }
+
+        public int GetEmptySlotCount()
+        {
+            int count = 0;
+            for (int x = 0; x < Width; x++)
+                for (int y = 0; y < Height; y++)
+                    if (GetItem(x, y) == null)
+                        count++;
+            return count;
         }
 
         // Use this for initialization

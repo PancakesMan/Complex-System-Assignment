@@ -23,6 +23,9 @@ public class UserKeyBindings : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.Escape))
             ExternalInventoryUI.Visible = false;
 
+        if (ExternalInventoryUI.Visible && Vector3.Distance(ExternalInventoryUI.inventory.transform.position, transform.position) > inventoryOpenDistance)
+            ExternalInventoryUI.Visible = false;
+
         if (Input.GetMouseButtonDown(1))
         {
             RaycastHit hit;

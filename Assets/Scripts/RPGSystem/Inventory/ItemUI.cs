@@ -125,6 +125,7 @@ namespace RPGSystem
         {
             if (!dragging)
             {
+                UITooltip.instance.SetTooltipObject(gameObject);
                 UITooltip.instance.SetText("<b>" + item.name + "</b>\n\n" + item.description);
                 UITooltip.instance.SetPosition(eventData.position);
                 UITooltip.instance.gameObject.SetActive(true);

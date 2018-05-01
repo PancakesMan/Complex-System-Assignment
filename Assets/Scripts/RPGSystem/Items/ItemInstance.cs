@@ -37,20 +37,20 @@ namespace RPGSystem
         {
             if (collider.gameObject.CompareTag("Player") && _pickable)
                 // Instatiate the item when added so it doesn't change the prefab
-                if (collider.gameObject.GetComponent<Inventory>().AddItem(MakeCopyOf(_item)))
+                if (collider.gameObject.GetComponent<Inventory>().AddItem(Item.Copy(_item)))
                     Destroy(gameObject);
 
             else if (collider.gameObject.CompareTag("Ground"))
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
 
-        private Item MakeCopyOf(Item item)
-        {
-            string name = item.name;
-            Item _item = Instantiate(item);
-            _item.name = name;
+        //private Item MakeCopyOf(Item item)
+        //{
+        //    string name = item.name;
+        //    Item _item = Instantiate(item);
+        //    _item.name = name;
 
-            return _item;
-        }
+        //    return _item;
+        //}
     }
 }

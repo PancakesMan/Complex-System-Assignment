@@ -13,5 +13,14 @@ namespace RPGSystem
 
         public int stackLimit, currentStacks;
         public string description;
+
+        public static Item Copy(Item item)
+        {
+            string name = item.name;
+            Item _item = Instantiate(item);
+            _item.name = name;
+
+            return _item;
+        }
     }
 }
