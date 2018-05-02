@@ -3,42 +3,53 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogueManager : MonoBehaviour {
-
-    private Queue<string> sentences;
-
-    public Text DialogueTextObject;
-
-	// Use this for initialization
-	void Start () {
-        sentences = new Queue<string>();
-	}
-	
-	public void SetDialogue(Dialogue dialogue)
+namespace RPGSystem
+{
+    public class DialogueManager : MonoBehaviour
     {
-        sentences.Clear();
-        foreach (string sentence in dialogue.sentences)
-            sentences.Enqueue(sentence);
+        private Queue<string> sentences;
 
-        DialogueTextObject.gameObject.SetActive(true);
-        StartDialogue();
-    }
+        public Image DialogueBox;
+        public Text Name;
+        public Text DialogueText;
 
-    void StartDialogue()
-    {
-        if (sentences.Count == 0)
-            DialogueTextObject.gameObject.SetActive(false);
-
-        StopAllCoroutines();
-        StartCoroutine(DisplaySentence(sentences.Dequeue()));
-    }
-
-    IEnumerator DisplaySentence(string sentence)
-    {
-        foreach (char letter in sentence)
+        // Use this for initialization
+        void Start()
         {
-            DialogueTextObject.text += letter;
-            yield return null;
+            sentences = new Queue<string>();
+        }
+
+        public void SetDialogue(Dialogue dialogue)
+        {
+            sentences.Clear();
+            foreach (string sentence in dialogue.sentences)
+                sentences.Enqueue(sentence);
+
+            DialogueBox.gameObject.SetActive(true);
+            Name.text = dialogue.name;
+            StartCoroutine(DisplaySentence(sentences.Dequeue()));
+        }
+
+        public void AdvanceDialogue()
+        {
+            if (sentences.Count == 0)
+            {
+                DialogueBox.gameObject.SetActive(false);
+                return;
+            }
+
+            StopAllCoroutines();
+            StartCoroutine(DisplaySentence(sentences.Dequeue()));
+        }
+
+        IEnumerator DisplaySentence(string sentence)
+        {
+            DialogueText.text = "";
+            foreach (char letter in sentence)
+            {
+                DialogueText.text += letter;
+                yield return null;
+            }
         }
     }
 }

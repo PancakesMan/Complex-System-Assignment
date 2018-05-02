@@ -12,7 +12,7 @@ public class UserKeyBindings : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        GetComponent<DialogueTrigger>().TriggerDialogue();
 	}
 	
 	// Update is called once per frame

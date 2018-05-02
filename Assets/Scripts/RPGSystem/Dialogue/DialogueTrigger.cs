@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueTrigger : MonoBehaviour {
-
-    public Dialogue dialogue;
-
-	public void TriggerDialogue()
+namespace RPGSystem
+{
+    public class DialogueTrigger : MonoBehaviour
     {
-        FindObjectOfType<DialogueManager>().SetDialogue(dialogue);
+        public Dialogue dialogue;
+
+        public void TriggerDialogue()
+        {
+            FindObjectOfType<DialogueManager>().SetDialogue(dialogue);
+        }
     }
 }
