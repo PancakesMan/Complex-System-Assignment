@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e5aaf8e09c716e4ab4d5138f11ac973, type: 3}
-  m_Name: Dice
+  m_Name: White Die
   m_EditorClassIdentifier: 
   type: 1
   sprite: {fileID: 21300000, guid: ffad139e446e79b4e857ab9e8e2a3282, type: 3}
@@ -17,4 +17,4 @@ MonoBehaviour:
     type: 2}
   stackLimit: 99
   currentStacks: 1
-  description: A standard 6 sided die.
+  description: A standard, 6 sided die. It is white.

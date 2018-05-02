@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 64885986813486000}
   - component: {fileID: 65360855406601734}
   m_Layer: 0
-  m_Name: ItemWorldModel
+  m_Name: White Die
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,3 +140,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _item: {fileID: 0}
+  pickupTimer: 2
