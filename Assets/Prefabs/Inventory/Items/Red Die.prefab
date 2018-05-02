@@ -139,5 +139,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a12a6a3c260ac74d8342470753d7dce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _item: {fileID: 0}
+  _item: {fileID: 11400000, guid: ab3d2c29efa632448836e92343659386, type: 2}
   pickupTimer: 2
