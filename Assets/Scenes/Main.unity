@@ -6535,6 +6535,10 @@ Prefab:
       propertyPath: m_LocalScale.x
       value: 0.2750231
       objectReference: {fileID: 0}
+    - target: {fileID: 6400002, guid: fb3216a7b2e2b534ab05b6569a753957, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fb3216a7b2e2b534ab05b6569a753957, type: 3}
   m_IsPrefabParent: 0
@@ -14846,7 +14850,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 6400002, guid: b6dbb5d4a2634c642b110457e8678c58, type: 3}
       propertyPath: m_Convex
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b6dbb5d4a2634c642b110457e8678c58, type: 3}
