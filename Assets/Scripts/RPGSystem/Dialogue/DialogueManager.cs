@@ -26,6 +26,7 @@ namespace RPGSystem
                 sentences.Enqueue(sentence);
 
             DialogueBox.gameObject.SetActive(true);
+            Time.timeScale = 0;
             Name.text = dialogue.name;
             StartCoroutine(DisplaySentence(sentences.Dequeue()));
         }
@@ -35,6 +36,7 @@ namespace RPGSystem
             if (sentences.Count == 0)
             {
                 DialogueBox.gameObject.SetActive(false);
+                Time.timeScale = 1;
                 return;
             }
 

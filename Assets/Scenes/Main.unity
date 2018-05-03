@@ -8989,6 +8989,8 @@ GameObject:
   - component: {fileID: 1331792097}
   - component: {fileID: 1331792096}
   - component: {fileID: 1331792095}
+  - component: {fileID: 1331792100}
+  - component: {fileID: 1331792099}
   m_Layer: 0
   m_Name: Small Storage Chest
   m_TagString: Untagged
@@ -9085,6 +9087,33 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1331792093}
   m_Mesh: {fileID: 4300002, guid: 6f5ac22b894785345bc0de34be8399eb, type: 3}
+--- !u!114 &1331792099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1331792093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af311789fc3ad0844a9f39755d335d60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+    name: Small Crate
+    sentences:
+    - A small crate. Doesn't look like it can store anything, though.
+--- !u!114 &1331792100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1331792093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720508d883d81a44a9a09d8c65b3dece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
 --- !u!1001 &1333018588
 Prefab:
   m_ObjectHideFlags: 0
@@ -11674,6 +11703,18 @@ CanvasRenderer:
 GameObject:
   m_PrefabParentObject: {fileID: 100004, guid: 6f5ac22b894785345bc0de34be8399eb, type: 3}
   m_PrefabInternal: {fileID: 426940490}
+--- !u!114 &1692791961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1692791960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720508d883d81a44a9a09d8c65b3dece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
 --- !u!65 &1692791962
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14866,7 +14907,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryUI: {fileID: 826930386}
   ExternalInventoryUI: {fileID: 156614057}
-  inventoryOpenDistance: 3
+  interactDistance: 3
 --- !u!114 &2063171617
 MonoBehaviour:
   m_ObjectHideFlags: 0
