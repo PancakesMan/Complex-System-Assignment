@@ -24,8 +24,9 @@ namespace RPGSystem
     public enum QuestState
     {
         Active,
-        Failed,
-        Completed
+        Finished,
+        Completed,
+        Failed
     }
 
     public enum ObjectiveType
@@ -39,7 +40,7 @@ namespace RPGSystem
     public class QuestObjective
     {
         [HideInInspector]
-        public QuestState State;
+        public QuestState State = QuestState.Active;
         public ObjectiveType Type;
 
         // Require Item objective variables
@@ -81,6 +82,7 @@ namespace RPGSystem
         public string Description;
         public List<QuestObjective> Objectives;
         public List<ItemReward> Rewards;
+        public bool AutoComplete = false;
 
         public QuestStateChangedEvent OnQuestStateChanged;
 
@@ -110,10 +112,10 @@ namespace RPGSystem
 
                 if (State != QuestState.Failed)
                 {
-                    QuestState temp = Objectives.All(a => a.State == QuestState.Completed) ? QuestState.Completed : State;
-                    if (temp == QuestState.Completed)
+                    QuestState temp = Objectives.All(a => a.State == QuestState.Finished) ? QuestState.Finished : State;
+                    if (temp == QuestState.Finished)
                     {
-                        State = QuestState.Completed;
+                        State = AutoComplete ? QuestState.Completed : QuestState.Finished;
                         OnQuestStateChanged.Invoke(this);
                     }
                 }

@@ -8,6 +8,7 @@ namespace RPGSystem
     public class QuestManager : MonoBehaviour
     {
         public List<Quest> ActiveQuests;
+        public List<Quest> FinishedQuests;
         public List<Quest> CompletedQuests;
         public List<Quest> FailedQuests;
 
@@ -49,6 +50,11 @@ namespace RPGSystem
                     //TODO
                     // No room in inventory for quest rewards
                 }
+            }
+            else if (quest.State == QuestState.Finished)
+            {
+                ActiveQuests.Remove(quest);
+                FinishedQuests.Add(quest);
             }
         }
     }

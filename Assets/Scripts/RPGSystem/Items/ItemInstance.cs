@@ -10,20 +10,16 @@ namespace RPGSystem
         public float pickupTimer = 2.0f;
 
         private bool _pickable = false;
-        private float _timer = 0.0f;
 
         // Use this for initialization
         void Start()
         {
-            
+            Invoke("AllowPickup", pickupTimer);
         }
 
         // Update is called once per frame
         void Update()
         {
-            _timer += Time.deltaTime;
-            if (_timer > pickupTimer)
-                _pickable = true;
         }
 
         public void SetItem(Item item, Transform spawnPosition)
@@ -44,13 +40,9 @@ namespace RPGSystem
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
 
-        //private Item MakeCopyOf(Item item)
-        //{
-        //    string name = item.name;
-        //    Item _item = Instantiate(item);
-        //    _item.name = name;
-
-        //    return _item;
-        //}
+        private void AllowPickup()
+        {
+            _pickable = true;
+        }
     }
 }
