@@ -27,6 +27,7 @@ namespace RPGSystem
 
             DialogueBox.gameObject.SetActive(true);
             DialogueBox.transform.SetAsLastSibling();
+            Time.timeScale = 0;
             Name.text = dialogue.name;
             StartCoroutine(DisplaySentence(sentences.Dequeue()));
         }
