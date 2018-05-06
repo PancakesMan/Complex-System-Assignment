@@ -7,19 +7,17 @@ namespace RPGSystem
 {
     public class DialogueManager : MonoBehaviour
     {
-        private Queue<string> sentences;
         private Dialogue _dialogue;
         private int index;
 
         public Image DialogueBox;
         public Text Name;
         public Text DialogueText;
-        public Button Previous, Next, Accept, Decline;
+        public Button Previous, Next;
 
         // Use this for initialization
         void Start()
         {
-            sentences = new Queue<string>();
             if (Previous)
                 Previous.onClick.AddListener(DisplayPreviousSentence);
 
@@ -29,37 +27,16 @@ namespace RPGSystem
 
         public void SetDialogue(Dialogue dialogue)
         {
-            //sentences.Clear();
-            //foreach (string sentence in dialogue.sentences)
-            //    sentences.Enqueue(sentence);
-
             _dialogue = dialogue;
             index = -1;
 
             DialogueBox.transform.SetAsLastSibling();
             DialogueBox.gameObject.SetActive(true);
-
-            //Previous.gameObject.SetActive(false);
             
             Time.timeScale = 0;
             Name.text = dialogue.name;
-            //StartCoroutine(DisplaySentence(sentences.Dequeue()));
             DisplayNextSentence();
         }
-
-        //public void AdvanceDialogue()
-        //{
-        //    if (sentences.Count == 0)
-        //    {
-        //        DialogueBox.gameObject.SetActive(false);
-        //        //
-        //        Time.timeScale = 1;
-        //        return;
-        //    }
-
-        //    StopAllCoroutines();
-        //    StartCoroutine(DisplaySentence(sentences.Dequeue()));
-        //}
 
         public void DisplayNextSentence()
         {
@@ -67,6 +44,7 @@ namespace RPGSystem
             if (_dialogue.sentences.Length == index)
             {
                 DialogueBox.gameObject.SetActive(false);
+                _dialogue.OnDialogueCompleted.Invoke();
                 Time.timeScale = 1;
                 return;
             }
@@ -98,20 +76,10 @@ namespace RPGSystem
         {
             // Disable the back button if we're reading the first sentence
             Previous.gameObject.SetActive(index != 0);
-            //if (index == 0)
-            //    Previous.gameObject.SetActive(false);
-            //else
-            //    Previous.gameObject.SetActive(true);
 
             // Change text of Next button to Ok if we're reading the last sentence
             Next.GetComponentInChildren<Text>().text = _dialogue.sentences.Length - 1 == index ? "Ok" : "Next";
-            //if (_dialogue.sentences.Length - 1 == index)
-            //{
-            //    // TODO check if Dialogue has a quest
-            //    Next.GetComponentInChildren<Text>().text = "Ok";
-            //}
-            //else
-            //    Next.GetComponentInChildren<Text>().text = "Next";
+            // TODO Check if Dialogue has a quest
         }
     }
 }

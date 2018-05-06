@@ -20,7 +20,7 @@ namespace RPGSystem
 
         public Item ItemToAdd;
 
-        public ItemTypes CanHold = (ItemTypes)~0;
+        public ItemTypes CanHold = ItemTypes.All;
         public Item[][] Items;
 
         [System.Serializable]

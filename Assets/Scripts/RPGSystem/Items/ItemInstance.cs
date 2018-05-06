@@ -17,11 +17,6 @@ namespace RPGSystem
             Invoke("AllowPickup", pickupTimer);
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-        }
-
         public void SetItem(Item item, Transform spawnPosition)
         {
             _item = item;
