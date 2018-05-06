@@ -29,9 +29,9 @@ namespace RPGSystem
 
         public void SetDialogue(Dialogue dialogue)
         {
-            sentences.Clear();
-            foreach (string sentence in dialogue.sentences)
-                sentences.Enqueue(sentence);
+            //sentences.Clear();
+            //foreach (string sentence in dialogue.sentences)
+            //    sentences.Enqueue(sentence);
 
             _dialogue = dialogue;
             index = -1;
@@ -47,19 +47,19 @@ namespace RPGSystem
             DisplayNextSentence();
         }
 
-        public void AdvanceDialogue()
-        {
-            if (sentences.Count == 0)
-            {
-                DialogueBox.gameObject.SetActive(false);
-                //
-                Time.timeScale = 1;
-                return;
-            }
+        //public void AdvanceDialogue()
+        //{
+        //    if (sentences.Count == 0)
+        //    {
+        //        DialogueBox.gameObject.SetActive(false);
+        //        //
+        //        Time.timeScale = 1;
+        //        return;
+        //    }
 
-            StopAllCoroutines();
-            StartCoroutine(DisplaySentence(sentences.Dequeue()));
-        }
+        //    StopAllCoroutines();
+        //    StartCoroutine(DisplaySentence(sentences.Dequeue()));
+        //}
 
         public void DisplayNextSentence()
         {
@@ -96,18 +96,22 @@ namespace RPGSystem
 
         private void SetDialogueButtonsStates()
         {
-            if (index == 0)
-                Previous.gameObject.SetActive(false);
-            else
-                Previous.gameObject.SetActive(true);
+            // Disable the back button if we're reading the first sentence
+            Previous.gameObject.SetActive(index != 0);
+            //if (index == 0)
+            //    Previous.gameObject.SetActive(false);
+            //else
+            //    Previous.gameObject.SetActive(true);
 
-            if (_dialogue.sentences.Length - 1 == index)
-            {
-                // TODO check if Dialogue has a quest
-                Next.GetComponentInChildren<Text>().text = "Ok";
-            }
-            else
-                Next.GetComponentInChildren<Text>().text = "Next";
+            // Change text of Next button to Ok if we're reading the last sentence
+            Next.GetComponentInChildren<Text>().text = _dialogue.sentences.Length - 1 == index ? "Ok" : "Next";
+            //if (_dialogue.sentences.Length - 1 == index)
+            //{
+            //    // TODO check if Dialogue has a quest
+            //    Next.GetComponentInChildren<Text>().text = "Ok";
+            //}
+            //else
+            //    Next.GetComponentInChildren<Text>().text = "Next";
         }
     }
 }
