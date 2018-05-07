@@ -20,7 +20,7 @@ namespace RPGSystem
 
         public Item ItemToAdd;
 
-        public ItemTypes CanHold = (ItemTypes)~0;
+        public ItemTypes CanHold = ItemTypes.All;
         public Item[][] Items;
 
         [System.Serializable]
@@ -46,8 +46,10 @@ namespace RPGSystem
         public int GetItemCount(Item item)
         {
             int count = 0;
+            // For all items in Inventory
             for (int x = 0; x < Width; x++)
                 for (int y = 0; y < Height; y++)
+                    // If the item is the one we want to count, icnrease count by the item's stack count
                     count += GetItem(x, y).name == item.name ? GetItem(x, y).currentStacks : 0;
             return count;
         }
@@ -63,26 +65,34 @@ namespace RPGSystem
             }
 
             Items[x][y] = item;
+            // Fire Inventory Update event
             OnUpdate.Invoke(item, x, y);
         }
 
         public bool RemoveItems(Item item, int amount)
         {
+            // For all items in Inventory
             for (int x = 0; x < Width; x++)
                 for (int y = 0; y < Height; y++)
                 {
                     Item temp = GetItem(x, y);
+                    // If the current item is the one we want to remove
                     if (temp.name == item.name)
                     {
                         if (temp.currentStacks <= amount)
                         {
+                            // If the stackCount is less or equal to the amount we want to remove
+                            // Reduce the amount left to remove
                             amount -= temp.currentStacks;
+                            // Set the item at the current spot to nothing
                             SetItem(x, y, null);
                         }
                         else if (temp.currentStacks > amount)
                             temp.currentStacks -= amount;
                     }
 
+                    // Stop removing items if we've removed
+                    // the amount we wanted to remove
                     if (amount == 0)
                         return true;
                 }
@@ -93,9 +103,12 @@ namespace RPGSystem
         public int GetEmptySlotCount()
         {
             int count = 0;
+            // Loop through all items in Inventory
             for (int x = 0; x < Width; x++)
                 for (int y = 0; y < Height; y++)
+                    // If the item at the current spot is null
                     if (GetItem(x, y) == null)
+                        // Increase the empty slot count
                         count++;
             return count;
         }
@@ -110,6 +123,7 @@ namespace RPGSystem
         // Update is called once per frame
         void Update()
         {
+            // Add item to inventory from prefab in unity inspector
             if (ItemToAdd != null)
             {
                 AddPrefabItem(ItemToAdd);
@@ -146,10 +160,13 @@ namespace RPGSystem
                     {
                         if (i.currentStacks + item.currentStacks > i.stackLimit)
                         {
+                            // If we will overflow the stack
+                            // Get the extra amount and add it as a new stack
                             int fillAmount = i.stackLimit - i.currentStacks;
                             i.currentStacks = i.stackLimit;
                             item.currentStacks -= fillAmount;
                             OnUpdate.Invoke(i, x, y);
+                            // Recursive call to AddItem
                             return AddItem(item);
                         }
                         else

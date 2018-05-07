@@ -17,41 +17,57 @@ public class UserKeyBindings : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        // Show players inventory
         if (Input.GetKeyUp(KeyCode.I))
             inventoryUI.Visible = !inventoryUI.Visible;
 
+        // Hide opened external inventory
         if (Input.GetKeyUp(KeyCode.Escape))
             ExternalInventoryUI.Visible = false;
 
+        // Hide opened external inventory if we're too far away
         if (ExternalInventoryUI.Visible && Vector3.Distance(ExternalInventoryUI.inventory.transform.position, transform.position) > interactDistance)
             ExternalInventoryUI.Visible = false;
 
+        // If we right click
         if (Input.GetMouseButtonDown(1))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+            // Raycast to get an object
             if (Physics.Raycast(ray, out hit, 30.0f))
+            {
                 if (hit.transform != null && hit.transform != transform)
                 {
+                    // If we did, check if it is interactable
                     Interactable interactable = hit.transform.GetComponent<Interactable>();
                     if (interactable)
                     {
+                        // If object is interactable
+                        // Interact based on it's interaction type
                         switch (interactable.type)
                         {
+                            // If it's an inventory
                             case InteractionType.Inventory:
+                                // Get the inventory component
                                 Inventory inv = hit.transform.GetComponent<Inventory>();
                                 if (inv && Vector3.Distance(hit.transform.position, transform.position) < interactDistance)
                                 {
+                                    // If it exists and we're in range
+                                    // Display the inventory
                                     if (ExternalInventoryUI.inventory != inv)
                                         ExternalInventoryUI.SetInventory(inv);
                                     ExternalInventoryUI.Visible = true;
                                 }
                                 break;
+                            // If it's a Dialogue
                             case InteractionType.Dialogue:
+                                // Get the DialogueTrigger component
                                 DialogueTrigger trigger = hit.transform.GetComponent<DialogueTrigger>();
                                 if (trigger && Vector3.Distance(hit.transform.position, transform.position) < interactDistance)
                                 {
+                                    // If the component exists trigger the dialogue
                                     trigger.TriggerDialogue();
                                 }
                                 break;
@@ -60,6 +76,7 @@ public class UserKeyBindings : MonoBehaviour {
                         }
                     }
                 }
+            }
         }
 	}
 }

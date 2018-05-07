@@ -39,7 +39,7 @@ public class CameraRotate : MonoBehaviour
         // position the camera looking at the target, with a height offset so we don't focus on their feet
         transform.position = target.position + Vector3.up * heightOffset - transform.forward * distance;
 
-        // store m,ouse position for next frame
+        // store mouse position for next frame
         lastMouseX = Input.mousePosition.x;
         lastMouseY = Input.mousePosition.y;
     }

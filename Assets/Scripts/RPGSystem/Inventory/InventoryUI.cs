@@ -14,6 +14,7 @@ namespace RPGSystem
         public Image sampleCell;
         public Inventory inventory;
         public GameObject itemPrefab;
+        public ItemUI draggedItem;
 
         private bool dragging;
 
@@ -21,7 +22,11 @@ namespace RPGSystem
         {
             set {
                 if (inventoryUI != null)
+                {
                     inventoryUI.gameObject.SetActive(value);
+                    if (value == false && draggedItem)
+                        draggedItem.OnEndDrag(new PointerEventData(EventSystem.current));
+                }
             }
             get {
                 if (inventoryUI != null)
@@ -38,12 +43,6 @@ namespace RPGSystem
         {
             if (inventory != null)
                 SetInventory(inventory);
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
 
         public void SetInventory(Inventory inv)
@@ -63,9 +62,12 @@ namespace RPGSystem
         {
             if (cells != null)
             {
+                // Loop over all cells
                 for (int x = 0; x < cells.GetLength(0); x++)
                     for (int y = 0; y < cells.GetLength(1); y++)
                     {
+                        // Destroy cells and items
+                        // so we're ready for a new inventory
                         Destroy(cells[x, y].gameObject);
                         Destroy(items[x, y].gameObject);
                     }
