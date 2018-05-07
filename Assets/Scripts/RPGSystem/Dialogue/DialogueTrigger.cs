@@ -6,11 +6,11 @@ namespace RPGSystem
 {
     public class DialogueTrigger : MonoBehaviour
     {
-        public Dialogue dialogue;
+        public Dialogue[] dialogues;
 
-        public void TriggerDialogue()
+        public void TriggerDialogue(int dialogueIndex = 0)
         {
-            FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+            FindObjectOfType<DialogueManager>().StartDialogue(dialogues[dialogueIndex]);
         }
     }
 }

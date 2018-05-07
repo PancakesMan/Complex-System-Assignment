@@ -75,6 +75,17 @@ namespace RPGSystem
                 }
             }
         }
+
+        public override string ToString()
+        {
+            switch (Type)
+            {
+                case ObjectiveType.RequireItem:
+                    return string.Format("{0} {1}/{2}", requiredItem.name, inventory.GetItemCount(requiredItem), itemCount);
+                default:
+                    return "";
+            }
+        }
     }
 
     [CreateAssetMenu(fileName = "New Quest", menuName = "RPG System/Quest")]

@@ -9463,8 +9463,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af311789fc3ad0844a9f39755d335d60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue:
-    name: Small Crate
+  dialogues:
+  - name: Small Crate
     sentences:
     - A small crate. Doesn't look like it can store anything, though.
     OnDialogueCompleted:
@@ -15094,8 +15094,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af311789fc3ad0844a9f39755d335d60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue:
-    name: Creator
+  dialogues:
+  - name: Creator
     sentences:
     - Hello, and welcome.
     - The objective is simple, run around the level and collect all the dice.
