@@ -10,7 +10,7 @@ namespace RPGSystem
 
         public void TriggerDialogue()
         {
-            FindObjectOfType<DialogueManager>().SetDialogue(dialogue);
+            FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
         }
     }
 }

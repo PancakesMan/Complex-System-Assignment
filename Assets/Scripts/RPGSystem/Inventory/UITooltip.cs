@@ -16,8 +16,11 @@ namespace RPGSystem
         // Use this for initialization
         void Start()
         {
+            // Set static UITooltip for other scripts to access
             instance = this;
             instance.gameObject.SetActive(false);
+
+            // Allow clicks to go trough the Tooltip
             background.raycastTarget = false;
             text.raycastTarget = false;
         }
@@ -25,10 +28,15 @@ namespace RPGSystem
         // Update is called once per frame
         void Update()
         {
+            // If the Tooltip is currently being displayed
             if (gameObject.activeSelf)
             {
+                // Move it to the position of the mouse
                 SetPosition(Input.mousePosition);
+
+                // if the object the tooltip is for is no longer active
                 if (!TooltipObject.activeInHierarchy)
+                    // Disable the tooltip
                     gameObject.SetActive(false);
             }
         }
@@ -44,11 +52,12 @@ namespace RPGSystem
             while (msg.EndsWith("\n") || msg.EndsWith(" "))
                 msg = msg.Remove(msg.Length - 1);
 
+            // If the text we're changing to isn't the same
             if (text.text != msg)
             {
                 text.text = msg;
 
-                // size it to hold the text we've given it
+                // Size the Tooltip to hold the text we've given it
                 TextGenerator textGen = new TextGenerator();
                 TextGenerationSettings generationSettings = text.GetGenerationSettings(background.rectTransform.sizeDelta);
                 float width = textGen.GetPreferredWidth(msg, generationSettings);
@@ -63,10 +72,13 @@ namespace RPGSystem
 
         public void SetPosition(Vector2 position)
         {
+            // Move the tooltip's position
             background.transform.position = new Vector3(
                 position.x + background.rectTransform.sizeDelta.x / 2,
                 position.y + background.rectTransform.sizeDelta.y / 2
             );
+
+            // Make it draw over everything else
             transform.SetAsLastSibling();
         }
     }

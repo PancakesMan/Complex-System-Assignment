@@ -22,7 +22,10 @@ namespace RPGSystem
 
         public void Start()
         {
+            // If the ItemUI has a text component for
+            // displaying the item stack count
             if (itemStackCount)
+                // Make raycasts go through the text component
                 itemStackCount.raycastTarget = false;
         }
 
@@ -30,23 +33,33 @@ namespace RPGSystem
         {
             item = _item;
 
+            // If item is not null
             if (item)
             {
+                // If image of ItemUI is not null
                 if (image)
                 {
+                    // Make the image visible and set it's sprite
                     image.gameObject.SetActive(true);
                     image.sprite = item.sprite;
                 }
+
+                // If itemStackCount of ItemUI is not null
                 if (itemStackCount)
                 {
+                    // Set the text of the object
+                    // And make it visible if the item can stack
                     itemStackCount.text = item.currentStacks.ToString();
                     itemStackCount.gameObject.SetActive(item.stackLimit > 1);
                 }
             }
-            else
+            else // If the item is null
             {
+                // Deactivate the existing Image component
                 if (image)
                     image.gameObject.SetActive(false);
+
+                // Deactivate the exisiting Text object
                 if (itemStackCount)
                     itemStackCount.gameObject.SetActive(false);
             }
@@ -90,32 +103,38 @@ namespace RPGSystem
             EventSystem.current.RaycastAll(eventData, hitObjects);
             if (hitObjects.Count > 0)
             {
+                // If we hit an object while ending the drag of an item
+                // Check if the object is a valid drop target
                 DropTarget dt = hitObjects[0].gameObject.GetComponent<DropTarget>();
                 if (dt)
                     target = dt.GetComponentInChildren<ItemUI>(true);
             }
             else
             {
+                // If we dropped the item over nothing
                 if (item.modelPrefab)
                 {
-                    //TODO Drop item on the ground
+                    // Spawn the item in the scene if it has a model
                     GameObject droppedItem = Instantiate(item.modelPrefab);
                     droppedItem.GetComponent<ItemInstance>().SetItem(item, UIParent.inventory.transform);
                 }
                 
-
                 // Remove item from player inventory
                 UIParent.inventory.SetItem((int)positionInInventory.x, (int)positionInInventory.y, null);
             }
 
+            // If the drop target is not null and not the current ItemUI object
             if (target && target != this)
             {
                 if (target.UIParent.CanDrop(this, (int)target.positionInInventory.x, (int)target.positionInInventory.y))
                 {
+                    // Drop the item in the target if it will take the item
                     target.UIParent.Drop(this, target);
                 }
             }
 
+            // Reset the ItemUI's transform
+            // and make it a raycast target
             transform.position = originalPosition;
             GetComponent<Image>().raycastTarget = true;
             dragging = false;
@@ -125,6 +144,8 @@ namespace RPGSystem
         {
             if (!dragging)
             {
+                // If we mouseOver this ItemUI and it's not currently being dragged
+                // Setup the UITooltip object and activate it
                 UITooltip.instance.SetTooltipObject(gameObject);
                 UITooltip.instance.SetText("<b>" + item.name + "</b>\n\n" + item.description);
                 UITooltip.instance.SetPosition(eventData.position);
@@ -134,6 +155,7 @@ namespace RPGSystem
 
         public void OnPointerExit(PointerEventData eventData)
         {
+            // When the mouse leaves the ItemUI deactivate the UITooltip
             UITooltip.instance.gameObject.SetActive(false);
         }
     }

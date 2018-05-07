@@ -63,9 +63,12 @@ namespace RPGSystem
         {
             if (cells != null)
             {
+                // Loop over all cells
                 for (int x = 0; x < cells.GetLength(0); x++)
                     for (int y = 0; y < cells.GetLength(1); y++)
                     {
+                        // Destroy cells and items
+                        // so we're ready for a new inventory
                         Destroy(cells[x, y].gameObject);
                         Destroy(items[x, y].gameObject);
                     }

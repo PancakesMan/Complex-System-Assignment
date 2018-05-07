@@ -44,6 +44,7 @@ namespace RPGSystem
         public ObjectiveType Type;
 
         // Require Item objective variables
+        // TODO hide this if ObjectiveType is not RequireItem
         public Inventory inventory;
         public Item requiredItem;
         public int itemCount;
@@ -63,6 +64,8 @@ namespace RPGSystem
                     case ObjectiveType.RequireItem:
                         if (inventory.GetItemCount(requiredItem) >= itemCount)
                         {
+                            // If the inventory has the number of items to complete the quest
+                            // Update the State of the objective and fire the StateChanged event
                             State = QuestState.Completed;
                             OnStateChanged.Invoke(State);
                         }
@@ -89,13 +92,9 @@ namespace RPGSystem
         // Use this for initialization
         void Start()
         {
+            // Add a StateChanged listener to event QuestObjective
             foreach (QuestObjective qo in Objectives)
                 qo.OnStateChanged.AddListener(OnQuestUpdate);
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
         }
 
         void OnQuestUpdate(QuestState state)
@@ -105,17 +104,27 @@ namespace RPGSystem
                 foreach (QuestObjective qo in Objectives)
                     if (qo.State == QuestState.Failed)
                     {
+                        // if you fail any of the objectives
+                        // Change the Quest's State to failed
                         State = QuestState.Failed;
+
+                        // Fire the QuestStateChanged event
                         OnQuestStateChanged.Invoke(this);
                         return;
                     }
 
                 if (State != QuestState.Failed)
                 {
+                    // If you haven't failed the quest
+                    // check if all the objectives are finished
                     QuestState temp = Objectives.All(a => a.State == QuestState.Finished) ? QuestState.Finished : State;
                     if (temp == QuestState.Finished)
                     {
+                        // If all the objectives are finished
+                        // Update the state of the quest
                         State = AutoComplete ? QuestState.Completed : QuestState.Finished;
+
+                        // Fire the QuestStateChanged event
                         OnQuestStateChanged.Invoke(this);
                     }
                 }
