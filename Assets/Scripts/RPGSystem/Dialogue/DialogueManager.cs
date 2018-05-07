@@ -57,11 +57,11 @@ namespace RPGSystem
                 // Disable the dialogue box
                 DialogueBox.gameObject.SetActive(false);
 
-                // Fire the DialogueCompleted event for the dialogue
-                _dialogue.OnDialogueCompleted.Invoke();
-
                 // Allow player movement again
                 Time.timeScale = 1;
+
+                // Fire the DialogueCompleted event for the dialogue
+                _dialogue.OnDialogueCompleted.Invoke();
                 return;
             }
 

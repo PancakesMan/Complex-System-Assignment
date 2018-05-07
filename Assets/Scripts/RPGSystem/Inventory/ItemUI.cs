@@ -69,6 +69,7 @@ namespace RPGSystem
         {
             // Save our start position
             originalPosition = transform.position;
+            UIParent.draggedItem = this;
 
             // Move this and parent to front of UI Canvas, so they are
             // drawn over everything else on the canvas
@@ -97,6 +98,7 @@ namespace RPGSystem
         public void OnEndDrag(PointerEventData eventData)
         {
             if (!dragging) return;
+            UIParent.draggedItem = null;
 
             ItemUI target = null;
             List<RaycastResult> hitObjects = new List<RaycastResult>();
