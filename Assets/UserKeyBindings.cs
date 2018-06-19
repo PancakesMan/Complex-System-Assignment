@@ -10,6 +10,10 @@ public class UserKeyBindings : MonoBehaviour {
 
     public float interactDistance = 5.0f;
 
+    private float oldTimeScale;
+    public bool paused = false;
+    public Canvas pauseMenu;
+
 	// Use this for initialization
 	void Start () {
         GetComponent<DialogueTrigger>().TriggerDialogue();
@@ -20,6 +24,15 @@ public class UserKeyBindings : MonoBehaviour {
         // Show players inventory
         if (Input.GetKeyUp(KeyCode.I))
             inventoryUI.Visible = !inventoryUI.Visible;
+
+        // Pause game
+        if (Input.GetKeyUp(KeyCode.P))
+        {
+            oldTimeScale = Time.timeScale;
+            paused = !paused;
+            pauseMenu.gameObject.SetActive(paused);
+            Time.timeScale = paused ? 0 : oldTimeScale;
+        }
 
         // Hide opened external inventory
         if (Input.GetKeyUp(KeyCode.Escape))
