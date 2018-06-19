@@ -28,7 +28,7 @@ public class UserKeyBindings : MonoBehaviour {
         // Pause game
         if (Input.GetKeyUp(KeyCode.P))
         {
-            oldTimeScale = Time.timeScale;
+            if (!paused) oldTimeScale = Time.timeScale;
             paused = !paused;
             pauseMenu.gameObject.SetActive(paused);
             Time.timeScale = paused ? 0 : oldTimeScale;

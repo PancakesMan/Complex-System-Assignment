@@ -367,6 +367,7 @@ MonoBehaviour:
   bush: {fileID: 1640621243644118, guid: 8c6a6cd06bcecec409e975eda3f493e6, type: 2}
   MinBranches: 5
   MaxBranches: 15
+  branchAngle: 30
 --- !u!136 &136004337423666816
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -10,6 +10,8 @@ public class Branch : MonoBehaviour {
     public int MinBranches = 5;
     public int MaxBranches = 15;
 
+    public int branchAngle = 40;
+
 	// Use this for initialization
 	void Start () {
 		foreach (GameObject end in branchEnds)
@@ -27,7 +29,7 @@ public class Branch : MonoBehaviour {
                 GameObject obj = Instantiate(spawnableBranches[Random.Range(0, spawnableBranches.Count)], end.transform);
                 obj.transform.localScale = Vector3.one;
                 obj.transform.parent = end.transform;
-                obj.transform.Rotate(new Vector3(Random.Range(-40, 40), 0, Random.Range(-40, 40)));
+                obj.transform.Rotate(new Vector3(Random.Range(-branchAngle, branchAngle), 0, Random.Range(-branchAngle, branchAngle)));
             }
             else
             {
