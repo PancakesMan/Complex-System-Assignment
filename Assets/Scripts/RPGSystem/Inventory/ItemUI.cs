@@ -117,8 +117,10 @@ namespace RPGSystem
                 if (item.modelPrefab)
                 {
                     // Spawn the item in the scene if it has a model
-                    GameObject droppedItem = Instantiate(item.modelPrefab);
-                    droppedItem.GetComponent<ItemInstance>().SetItem(item, UIParent.inventory.transform);
+                    UIParent.inventory.GetComponent<Animator>().SetTrigger("Throw Dice");
+                    UIParent.inventory.gameObject.GetComponent<UserKeyBindings>().StartDropItemCoroutine(item, UIParent.inventory.transform, 1.8f);
+                    //GameObject droppedItem = Instantiate(item.modelPrefab);
+                    //droppedItem.GetComponent<ItemInstance>().SetItem(item, UIParent.inventory.transform);
                 }
                 
                 // Remove item from player inventory
@@ -140,6 +142,14 @@ namespace RPGSystem
             transform.position = originalPosition;
             GetComponent<Image>().raycastTarget = true;
             dragging = false;
+        }
+
+        IEnumerator DropItem(Item item, Transform transform, int seconds)
+        {
+            yield return new WaitForSecondsRealtime(seconds);
+
+            GameObject droppedItem = Instantiate(item.modelPrefab);
+            droppedItem.GetComponent<ItemInstance>().SetItem(item, transform);
         }
 
         public void OnPointerEnter(PointerEventData eventData)

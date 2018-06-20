@@ -92,4 +92,17 @@ public class UserKeyBindings : MonoBehaviour {
             }
         }
 	}
+
+    public void StartDropItemCoroutine(Item item, Transform transform, float seconds)
+    {
+        StartCoroutine(DropItem(item, transform, seconds));
+    }
+
+    public IEnumerator DropItem(Item item, Transform transform, float seconds)
+    {
+        yield return new WaitForSecondsRealtime(seconds);
+
+        GameObject droppedItem = Instantiate(item.modelPrefab);
+        droppedItem.GetComponent<ItemInstance>().SetItem(item, transform);
+    }
 }
