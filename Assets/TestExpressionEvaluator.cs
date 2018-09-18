@@ -23,6 +23,7 @@ public class TestExpressionEvaluator : MonoBehaviour {
 
     public int Calculate()
     {
+        //It's a kind o' magic
         return ExpressionEvaluator.Evaluate<int>(expression);
     }
 }
