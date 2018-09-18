@@ -17,7 +17,8 @@ public class TestExpressionEvaluator : MonoBehaviour {
         if (output)
         {
             output = !output;
-            Debug.Log(Calculate());
+            Debug.Log(Calculate()); //Testing Something
+            // oof
         }
     }
 
